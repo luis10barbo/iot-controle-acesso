@@ -14,13 +14,15 @@ datasource db {
 }
 
 model Cartao {
-  id      String   @id @default(cuid())
-  Acessos Acesso[]
+  id               String   @id @default(cuid())
+  PortasPermitidas Porta[]
+  Acessos          Acesso[]
 }
 
 model Porta {
-  id      String   @id @default(cuid())
-  Acessos Acesso[]
+  id                String   @id @default(cuid())
+  CartoesPermitidos Cartao[]
+  Acessos           Acesso[]
 }
 
 model Acesso {
