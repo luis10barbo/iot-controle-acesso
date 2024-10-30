@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv"
 import routerAcesso from "./controller/acesso/routerAcesso";
 import db from "./utils/prisma";
+import routerPorta from "./controller/acesso/routerPorta";
 
 async function main() {
     dotenv.config();
@@ -9,6 +10,7 @@ async function main() {
     const app = express();
     const portaAberturaServidor = process.env.PORTA ? process.env.PORTA : 8000;
 
+    app.use("/porta", routerPorta);
     app.use("/acesso", routerAcesso);
     app.listen(portaAberturaServidor, async () => {
         console.log(`Servidor iniciado em porta ${portaAberturaServidor}`);

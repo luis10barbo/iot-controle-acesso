@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Cartao {
-  id               String   @id @default(cuid())
+  id               String   @id
   PortasPermitidas Porta[]
   Acessos          Acesso[]
 }
