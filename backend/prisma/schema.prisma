@@ -31,6 +31,6 @@ model Acesso {
   idCartao      String
   porta         Porta    @relation(fields: [idPorta], references: [id])
   idPorta       String
-  dataInteracao DateTime
+  dataInteracao DateTime @default(now())
   liberado      Boolean
 }

@@ -12,6 +12,10 @@ routerAcesso.post("/confirmar", async (req, res) => {
         return;
     }
     const porta = await db.porta.findFirst();
+    if (!porta) {
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("Nao existe nenhuma porta no sistema.");
+        return
+    }
 
     // codigo de confirmar acesso aqui
     let confirmacaoAcesso = false;
@@ -24,14 +28,17 @@ routerAcesso.post("/confirmar", async (req, res) => {
         return;
     }
 
-    const cartaoAutorizado = await db.cartao.findUnique({ where: { id: idCartao, PortasPermitidas: { some: { id: porta?.id } } } })
+    const cartaoAutorizado = await db.cartao.findUnique({ where: { id: idCartao, PortasPermitidas: { some: { id: porta.id } } } })
     if (!cartaoAutorizado) {
         // se nao achar nenhum cartao com id idCartao e com PortaPermitida da idPorta passada
         res.status(HttpStatusCode.UNAUTHORIZED).send(confirmacaoAcesso);
-        return;
+    } else { 
+        confirmacaoAcesso = true;
+        res.status(200).send(confirmacaoAcesso);
     }
-    confirmacaoAcesso = true;
-    res.status(200).send(confirmacaoAcesso);
+   
+    await db.acesso.create({data: {liberado: confirmacaoAcesso, idCartao: idCartao, idPorta: porta.id}});
+    
 })
 
 routerAcesso.get("/listar", async (_, res) => {
