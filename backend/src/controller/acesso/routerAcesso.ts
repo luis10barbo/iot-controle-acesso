@@ -7,6 +7,7 @@ routerAcesso.post("/confirmar", async (req, res) => {
     const idCartao = req.query["id_cartao"];
     const idPorta = req.query["id_porta"];
     const dataInteracao = req.query["data_interacao"];
+    console.log(idCartao)
 
     // validar se foram enviados as informacoes acima
     if (!idCartao || typeof idCartao != "string") {
