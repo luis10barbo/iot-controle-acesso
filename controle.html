@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="controle.css"/>
+    <title>Controle de acesso</title>
+</head>
+<body>
+    <div class="container">
+        <div class="access-list">
+            <h3>Lista de Acessos</h3>
+            <div class="access-item">
+                <div>
+                    <p>Cartao de Luis</p>
+                    <p class="card-id">3129cdaf901930r3fds90fa8093890</p>
+                    <p class="timestamp">17/10/2024 09:34:05</p>
+                </div>
+                <p class="access-status negado">Acesso Negado</p>
+            </div>
+            <div class="access-item">
+                <div>
+                    <p>Cartao de Vinicius</p>
+                    <p class="card-id">y7ty89ag787324897fda9831123324</p>
+                    <p class="timestamp">17/10/2024 09:34:05</p>
+                </div>
+                <p class="access-status liberado">Acesso Liberado</p>
+            </div>
+            <div class="access-item">
+                <div>
+                    <p>Cartao de Vinicius</p>
+                    <p class="card-id">y7ty89ag787324897fda9831123324</p>
+                    <p class="timestamp">17/10/2024 11:34:05</p>
+                </div>
+                <p class="access-status liberado">Acesso Liberado</p>
+            </div>
+        </div>
+        
+        <div class="main-panel">
+            <h1>Porta A</h1>
+            <p class="card-id">3129cdaf901930r3fds90fa8093890</p>
+            
+            <div class="authorized-cards">
+                <h3>Cartoes Autorizados</h3>
+                <div id="authorized-list">
+                    <div class="authorized-card">
+                        <p>Cartao de Luis</p>
+                        <button class="action remove" onclick="removeCard(this)">Remover</button>
+                    </div>
+                    <div class="authorized-card">
+                        <p>Cartao de Vinicius</p>
+                        <button class="action remove" onclick="removeCard(this)">Remover</button>
+                    </div>
+                </div>
+                <div class="authorized-card">
+                    <button class="action" onclick="addCard()">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="controle.js"></script>
+</html>
