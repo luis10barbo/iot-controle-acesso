@@ -32,8 +32,9 @@ routerCartao.post("/autorizacao", async (req, res) => {
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("Nao existe nenhuma porta no sistema.");
         return
     }
+    let autorizacaoResposta: any
     if (autorizacaoBool === true) {
-        db.cartao.update({
+        autorizacaoResposta = await db.cartao.update({
             data: {
                 PortasPermitidas: {
                     connect: {
@@ -46,7 +47,7 @@ routerCartao.post("/autorizacao", async (req, res) => {
             }
         })
     } else {
-        db.cartao.update({
+        autorizacaoResposta = await db.cartao.update({
             data: {
                 PortasPermitidas: {
                     disconnect: {
@@ -59,6 +60,7 @@ routerCartao.post("/autorizacao", async (req, res) => {
             }
         })
     }
+    res.status(HttpStatusCode.ACCEPTED).send(autorizacaoResposta);
     
 })
 
