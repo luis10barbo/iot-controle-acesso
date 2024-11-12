@@ -63,17 +63,17 @@ routerCartao.post("/autorizacao", async (req, res) => {
 })
 
 routerCartao.post("/criar", async (req, res) => {
-    const { id } = req.body; 
+    const { id_cartao } = req.body; 
 
 
-    if (!id || typeof id !== "string") {
+    if (!id_cartao || typeof id_cartao !== "string") {
         res.status(HttpStatusCode.BAD_REQUEST).send("ID do cartão é obrigatorio.");
         return;
     }
 
     try {
         const novoCartao = await db.cartao.create({
-            data: { id }, 
+            data: { id: id_cartao }, 
         });
         res.status(HttpStatusCode.CREATED).json(novoCartao);
     } catch (error) {
