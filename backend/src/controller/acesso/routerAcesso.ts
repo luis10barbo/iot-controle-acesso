@@ -4,7 +4,7 @@ import HttpStatusCode from "../../utils/httpStatusCodes";
 
 const routerAcesso = Router();
 routerAcesso.post("/confirmar", async (req, res) => {
-    const idCartao = req.query["id_cartao"];
+    const idCartao = req.body.id_cartao;
     const idPorta = req.query["id_porta"];
     const dataInteracao = req.query["data_interacao"];
     console.log(idCartao)
