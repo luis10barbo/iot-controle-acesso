@@ -10,7 +10,9 @@ async function main() {
 
     const app = express();
     const portaAberturaServidor = process.env.PORTA ? process.env.PORTA : 8000;
-    
+
+    app.use(express.urlencoded({ extended: true })); // support encoded bodies
+
     app.use("/porta", routerPorta);
     app.use("/cartao", routerCartao); //
     app.use("/acesso", routerAcesso);
