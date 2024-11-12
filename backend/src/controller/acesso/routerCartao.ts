@@ -86,7 +86,7 @@ routerCartao.post("/criar", async (req, res) => {
 
 
 routerCartao.get("/listar", async (_, res) => {
-    res.status(HttpStatusCode.OK).send(await db.cartao.findMany());
+    res.status(HttpStatusCode.OK).send(await db.cartao.findMany({include: {Acessos: true, PortasPermitidas: true}}));
 });
 
 
