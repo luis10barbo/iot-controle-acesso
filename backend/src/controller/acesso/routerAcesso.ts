@@ -34,4 +34,8 @@ routerAcesso.post("/confirmar", async (req, res) => {
     res.status(200).send(confirmacaoAcesso);
 })
 
+routerAcesso.get("/listar", async (_, res) => {
+    res.status(HttpStatusCode.OK).send(await db.acesso.findMany());
+});
+
 export default routerAcesso;
