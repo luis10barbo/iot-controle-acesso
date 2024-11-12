@@ -5,19 +5,13 @@ import HttpStatusCode from "../../utils/httpStatusCodes";
 const routerAcesso = Router();
 routerAcesso.post("/confirmar", async (req, res) => {
     const idCartao = req.body.id_cartao;
-    const idPorta = req.query["id_porta"];
-    const dataInteracao = req.query["data_interacao"];
-    console.log(idCartao)
 
     // validar se foram enviados as informacoes acima
     if (!idCartao || typeof idCartao != "string") {
         res.status(HttpStatusCode.BAD_REQUEST).send("id cartao nao definido.")
         return;
     }
-    if (!idPorta || typeof idPorta != "string") {
-        res.status(HttpStatusCode.BAD_REQUEST).send("id porta nao definido.")
-        return;
-    }
+    const porta = await db.porta.findFirst();
 
     // codigo de confirmar acesso aqui
     let confirmacaoAcesso = false;
@@ -30,7 +24,7 @@ routerAcesso.post("/confirmar", async (req, res) => {
         return;
     }
 
-    const cartaoAutorizado = await db.cartao.findUnique({ where: { id: idCartao, PortasPermitidas: { some: { id: idPorta } } } })
+    const cartaoAutorizado = await db.cartao.findUnique({ where: { id: idCartao, PortasPermitidas: { some: { id: porta?.id } } } })
     if (!cartaoAutorizado) {
         // se nao achar nenhum cartao com id idCartao e com PortaPermitida da idPorta passada
         res.status(HttpStatusCode.UNAUTHORIZED).send(confirmacaoAcesso);
