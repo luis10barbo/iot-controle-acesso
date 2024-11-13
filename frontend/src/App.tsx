@@ -24,10 +24,16 @@ function App() {
   useEffect(() => {
     adquirirAcessos();
     adquirirCartoes();
+    setInterval(() => {
+      adquirirAcessos();
+      adquirirCartoes();
+    }, 5000);
+    
     const es = new EventSource("http://localhost:8000/acesso/observar");
     es.onopen = () => {console.log("Connection open!")}
     es.onerror = (e) => {console.log(e)}
     es.onmessage = (message) => {
+      
       setAcessos((acessosAntigo) => {
         return [...acessosAntigo, message.data]
       }) 
