@@ -1,8 +1,26 @@
 import { Router } from "express";
 import db from "../../utils/prisma";
 import HttpStatusCode from "../../utils/httpStatusCodes";
+import {createId} from "@paralleldrive/cuid2"
 
 const routerAcesso = Router();
+const conexoesAtivas = new Map<string, (acesso: Acessos[0]) => void>();
+routerAcesso.get("/observar", async (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders();
+
+    const id = createId();
+    conexoesAtivas.set(id, (acesso) => {
+        res.write(`data: ${JSON.stringify(acesso)}`);
+    })
+
+    res.on("close", () => {
+        conexoesAtivas.delete(id);
+    })
+});
 routerAcesso.post("/confirmar", async (req, res) => {
     const idCartao = req.body.id_cartao;
 
@@ -37,12 +55,16 @@ routerAcesso.post("/confirmar", async (req, res) => {
         res.status(200).send(confirmacaoAcesso);
     }
    
-    await db.acesso.create({data: {liberado: confirmacaoAcesso, idCartao: idCartao, idPorta: porta.id}});
+    const acesso = await db.acesso.create({data: {liberado: confirmacaoAcesso, idCartao: idCartao, idPorta: porta.id}});
+    conexoesAtivas.forEach(conexao => {
+        conexao(acesso)
+    })
     
 })
-
+export type Acessos = Awaited<ReturnType<typeof db.acesso.findMany>>
 routerAcesso.get("/listar", async (_, res) => {
     res.status(HttpStatusCode.OK).send(await db.acesso.findMany());
+    
 });
 
 export default routerAcesso;

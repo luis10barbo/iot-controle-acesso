@@ -17,7 +17,6 @@ async function main() {
     app.use(cors({
         origin: "*",
         allowedHeaders: "Content-Type",
-        
     }))
 
     app.use(express.urlencoded({ extended: true })); // support encoded bodies
