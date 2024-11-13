@@ -27,10 +27,10 @@ model Porta {
 
 model Acesso {
   idAcesso      Int      @id @default(autoincrement())
-  cartao        Cartao   @relation(fields: [idCartao], references: [id])
-  idCartao      String
-  porta         Porta    @relation(fields: [idPorta], references: [id])
-  idPorta       String
+  cartao        Cartao?  @relation(fields: [idCartao], references: [id], onDelete: SetNull)
+  idCartao      String?
+  porta         Porta?   @relation(fields: [idPorta], references: [id], onDelete: SetNull)
+  idPorta       String?
   dataInteracao DateTime @default(now())
   liberado      Boolean
 }
