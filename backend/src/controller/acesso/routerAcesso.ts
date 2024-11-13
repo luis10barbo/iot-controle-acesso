@@ -6,11 +6,12 @@ import {createId} from "@paralleldrive/cuid2"
 const routerAcesso = Router();
 const conexoesAtivas = new Map<string, (acesso: Acessos[0]) => void>();
 routerAcesso.get("/observar", async (req, res) => {
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Connection', 'keep-alive');
-    res.flushHeaders();
+    const headers = {
+        'Content-Type': 'text/event-stream',
+        'Connection': 'keep-alive',
+        'Cache-Control': 'no-cache'
+      };
+    res.writeHead(200, headers);
 
     const id = createId();
     conexoesAtivas.set(id, (acesso) => {
