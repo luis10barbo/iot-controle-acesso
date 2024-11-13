@@ -6,13 +6,6 @@ import './App.css'
 function App() {
   const [acessos, setAcessos] = useState<Acessos>([]);
   const [cartoes, setCartoes] = useState<Cartoes>([]);
-  function removeCard(): void {
-    throw new Error('Function not implemented.')
-  }
-
-  function addCard(): void {
-    throw new Error('Function not implemented.')
-  }
 
   async function adquirirAcessos() {
     setAcessos(await (await fetch("https://iot.luisbrb.com.br/acesso/listar", {headers: {"Content-Type": "application/json"}})).json());
