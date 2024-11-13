@@ -67,7 +67,7 @@ routerAcesso.post("/confirmar", async (req, res) => {
     
 })
 routerAcesso.get("/listar", async (_, res) => {
-    res.status(HttpStatusCode.OK).send(await db.acesso.findMany());
+    res.status(HttpStatusCode.OK).send(await db.acesso.findMany({orderBy: {dataInteracao: "desc"}}));
     
 });
 
