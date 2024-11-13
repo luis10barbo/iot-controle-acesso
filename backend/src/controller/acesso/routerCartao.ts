@@ -86,6 +86,10 @@ routerCartao.post("/criar", async (req, res) => {
     }
 });
 
+routerCartao.post("/remover", async (_, res) => {
+    await db.cartao.deleteMany();
+})
+
 routerCartao.get("/listar", async (_, res) => {
     res.status(HttpStatusCode.OK).send(await adquirirCartoes());
 });
