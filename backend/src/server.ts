@@ -4,6 +4,8 @@ import routerAcesso from "./controller/acesso/routerAcesso";
 import routerCartao from "./controller/acesso/routerCartao";
 import db from "./utils/prisma";
 import routerPorta from "./controller/acesso/routerPorta";
+import routerApp from "./controller/acesso/routerApp";
+import cors from "cors"
 
 async function main() {
     dotenv.config();
@@ -13,6 +15,7 @@ async function main() {
 
     app.use(express.urlencoded({ extended: true })); // support encoded bodies
 
+    app.use(cors())
     app.use("/porta", routerPorta);
     app.use("/cartao", routerCartao); //
     app.use("/acesso", routerAcesso);
