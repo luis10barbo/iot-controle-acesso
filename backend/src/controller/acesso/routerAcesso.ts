@@ -1,7 +1,6 @@
 import { Router } from "express";
 import db from "../../utils/prisma";
 import HttpStatusCode from "../../utils/httpStatusCodes";
-import {createId} from "@paralleldrive/cuid2"
 
 const routerAcesso = Router();
 const conexoesAtivas = new Map<string, (acesso: Acessos[0]) => void>();
