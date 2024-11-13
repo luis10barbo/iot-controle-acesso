@@ -87,3 +87,23 @@ body {
   border: none;
   color: #ff4d4d;
 }
+
+.accesses {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.accesses::-webkit-scrollbar {
+  width: 8px;
+}
+
+.accesses::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.accesses::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
