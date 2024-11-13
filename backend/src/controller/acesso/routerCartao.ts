@@ -6,6 +6,7 @@ const routerCartao = Router();
 
 
 routerCartao.post("/autorizacao", async (req, res) => {
+    console.log(req.body);
     const {id_cartao, autorizacao} = req.body;
     if (!id_cartao || typeof id_cartao !== "string") {
         res.status(HttpStatusCode.BAD_REQUEST).send("ID do cartão é obrigatorio.");
