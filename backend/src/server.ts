@@ -13,9 +13,15 @@ async function main() {
     const app = express();
     const portaAberturaServidor = process.env.PORTA ? process.env.PORTA : 8000;
 
+
+    app.use(cors({
+        origin: "*",
+        allowedHeaders: "Content-Type",
+        
+    }))
+
     app.use(express.urlencoded({ extended: true })); // support encoded bodies
 
-    app.use(cors())
     app.use("/porta", routerPorta);
     app.use("/cartao", routerCartao); //
     app.use("/acesso", routerAcesso);
