@@ -77,9 +77,7 @@ function App() {
                     
                   
                 </div>
-                <div className="authorized-card">
-                    <button className="action" onClick={() => addCard()}>Adicionar</button>
-                </div>
+                
             </div>
         </div>
     </div>
