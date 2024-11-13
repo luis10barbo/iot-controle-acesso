@@ -42,11 +42,11 @@ routerAcesso.post("/confirmar", async (req, res) => {
 
     // codigo de confirmar acesso aqui
     let confirmacaoAcesso = false;
-
-    const cartao = await db.cartao.findUnique({ where: { id: idCartao } })
+    let cartao: any = null;
+    cartao = await db.cartao.findUnique({ where: { id: idCartao } })
     if (!cartao) {
         // cartao nao existe, registrar
-        const cartao = await db.cartao.create({ data: { id: idCartao } });
+        cartao = await db.cartao.create({ data: { id: idCartao } });
         res.status(HttpStatusCode.UNAUTHORIZED).send(confirmacaoAcesso);
         return;
     }
