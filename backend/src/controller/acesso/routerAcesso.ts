@@ -6,21 +6,25 @@ import {createId} from "@paralleldrive/cuid2"
 const routerAcesso = Router();
 const conexoesAtivas = new Map<string, (acesso: Acessos[0]) => void>();
 routerAcesso.get("/observar", async (req, res) => {
-    const headers = {
-        'Content-Type': 'text/event-stream',
-        'Connection': 'keep-alive',
-        'Cache-Control': 'no-cache'
-      };
-    res.writeHead(200, headers);
+    // res.setHeader('Content-Type', 'text/event-stream');
+    // res.setHeader('Cache-Control', 'no-cache');
+    // res.setHeader('Connection', 'keep-alive');
+    // res.flushHeaders();
+    res.writeHead(200, {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive"
+    });
 
-    const id = createId();
-    conexoesAtivas.set(id, (acesso) => {
-        res.write(`data: ${JSON.stringify(acesso)}`);
-    })
+    // const id = createId();
+    // conexoesAtivas.set(id, (acesso) => {
+    //     res.write(`data: ${JSON.stringify(acesso)}`);
+    // })
 
-    res.on("close", () => {
-        conexoesAtivas.delete(id);
-    })
+    // res.on("close", () => {
+    //     conexoesAtivas.delete(id);
+    //     res.end();
+    // })
 });
 routerAcesso.post("/confirmar", async (req, res) => {
     const idCartao = req.body.id_cartao;

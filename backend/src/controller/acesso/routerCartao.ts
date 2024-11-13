@@ -90,7 +90,7 @@ async function adquirirCartoes() {
 
 export type Cartoes = Awaited<ReturnType<typeof adquirirCartoes>>;
 routerCartao.get("/listar", async (_, res) => {
-    res.status(HttpStatusCode.OK).send(adquirirCartoes());
+    res.status(HttpStatusCode.OK).send(await adquirirCartoes());
 });
 
 
