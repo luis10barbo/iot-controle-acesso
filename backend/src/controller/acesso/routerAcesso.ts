@@ -47,8 +47,6 @@ routerAcesso.post("/confirmar", async (req, res) => {
     if (!cartao) {
         // cartao nao existe, registrar
         cartao = await db.cartao.create({ data: { id: idCartao } });
-        res.status(HttpStatusCode.UNAUTHORIZED).send(confirmacaoAcesso);
-        return;
     }
 
     const cartaoAutorizado = await db.cartao.findUnique({ where: { id: idCartao, PortasPermitidas: { some: { id: porta.id } } } })
