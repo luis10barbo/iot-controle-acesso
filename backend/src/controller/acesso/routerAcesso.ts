@@ -1,10 +1,11 @@
 import { Router } from "express";
 import db from "../../utils/prisma";
 import HttpStatusCode from "../../utils/httpStatusCodes";
+import { Acessos } from "../../model/acesso";
 
 const routerAcesso = Router();
 const conexoesAtivas = new Map<string, (acesso: Acessos[0]) => void>();
-routerAcesso.get("/observar", async (req, res) => {
+routerAcesso.get("/observar", async (_, res) => {
     // res.setHeader('Content-Type', 'text/event-stream');
     // res.setHeader('Cache-Control', 'no-cache');
     // res.setHeader('Connection', 'keep-alive');
@@ -65,7 +66,6 @@ routerAcesso.post("/confirmar", async (req, res) => {
     })
     
 })
-export type Acessos = Awaited<ReturnType<typeof db.acesso.findMany>>
 routerAcesso.get("/listar", async (_, res) => {
     res.status(HttpStatusCode.OK).send(await db.acesso.findMany());
     

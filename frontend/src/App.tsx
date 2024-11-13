@@ -1,6 +1,6 @@
 import { useEffect, useState} from 'react'
-import {type Acessos} from "../../backend/src/controller/acesso/routerAcesso"
-import {type Cartoes} from "../../backend/src/controller/acesso/routerCartao"
+import {type Acessos} from "../../backend/src/model/acesso"
+import {type Cartoes} from "../../backend/src/model/cartao"
 import './App.css'
 
 function App() {

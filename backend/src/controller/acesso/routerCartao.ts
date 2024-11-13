@@ -1,6 +1,7 @@
 import { Router } from "express";
 import db from "../../utils/prisma";
 import HttpStatusCode from "../../utils/httpStatusCodes";
+import { adquirirCartoes } from "../../model/cartao"
 
 const routerCartao = Router();
 
@@ -85,11 +86,6 @@ routerCartao.post("/criar", async (req, res) => {
     }
 });
 
-async function adquirirCartoes() {
-    return await db.cartao.findMany({include: {Acessos: true, PortasPermitidas: true}})
-}
-
-export type Cartoes = Awaited<ReturnType<typeof adquirirCartoes>>;
 routerCartao.get("/listar", async (_, res) => {
     res.status(HttpStatusCode.OK).send(await adquirirCartoes());
 });
